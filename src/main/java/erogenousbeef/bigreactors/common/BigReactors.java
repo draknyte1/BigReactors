@@ -806,6 +806,7 @@ public class BigReactors {
 		TurbineCoil.registerBlock("blockPlatinum",	3.0f, 1f, 2.5f);	// TE, lots of mods
 		TurbineCoil.registerBlock("blockShiny",		3.0f, 1f, 2.5f);	// TE
 		TurbineCoil.registerBlock("blockTitanium",	3.1f, 1f, 2.7f);	// Mariculture
+		TurbineCoil.registerBlock("blockTungsten",	3.0f, 1.02f, 3.0f);	// TE, note tiny energy bonus!	(14% at 1000RF/t output)
 		TurbineCoil.registerBlock("blockEnderium",	3.0f, 1.02f, 3.0f);	// TE, note tiny energy bonus!	(14% at 1000RF/t output)
 
 		TurbineCoil.registerBlock("blockLudicrite",  3.5f, 1.02f, 3.5f);
@@ -846,6 +847,7 @@ public class BigReactors {
 		ReactorInterior.registerBlock("blockPlatinum", 	0.57f, 0.86f, 1.58f, IHeatEntity.conductivityEmerald);
 		ReactorInterior.registerBlock("blockShiny", 		0.57f, 0.86f, 1.58f, IHeatEntity.conductivityEmerald);		
 		ReactorInterior.registerBlock("blockTitanium", 	0.58f, 0.87f, 1.59f, 2.7f); // Mariculture
+		ReactorInterior.registerBlock("blockTungsten", 	0.60f, 0.88f, 1.60f, IHeatEntity.conductivityDiamond);
 		ReactorInterior.registerBlock("blockEnderium", 	0.60f, 0.88f, 1.60f, IHeatEntity.conductivityDiamond);
 
 		if(enableFantasyMetals) {
@@ -860,13 +862,20 @@ public class BigReactors {
 
 		//Water: 0.33f, 0.5f, 1.33f
 		ReactorInterior.registerFluid("water", RadiationHelper.waterData.absorption, RadiationHelper.waterData.heatEfficiency, RadiationHelper.waterData.moderation, IHeatEntity.conductivityWater);
+		ReactorInterior.registerFluid("saltwater", RadiationHelper.waterData.absorption, RadiationHelper.waterData.heatEfficiency, RadiationHelper.waterData.moderation, IHeatEntity.conductivityWater);
+		ReactorInterior.registerFluid("ic2distilledwater", RadiationHelper.waterData.absorption, RadiationHelper.waterData.heatEfficiency, RadiationHelper.waterData.moderation, IHeatEntity.conductivityWater);
 		ReactorInterior.registerFluid("redstone",		0.75f, 0.55f, 1.60f, IHeatEntity.conductivityEmerald);
+		ReactorInterior.registerFluid("molten.redstone",		0.75f, 0.55f, 1.60f, IHeatEntity.conductivityEmerald);
 		ReactorInterior.registerFluid("glowstone",	0.20f, 0.60f, 1.75f, IHeatEntity.conductivityCopper);
+		ReactorInterior.registerFluid("molten.glowstone",	0.20f, 0.60f, 1.75f, IHeatEntity.conductivityCopper);
 		ReactorInterior.registerFluid("cryotheum",	0.66f, 0.95f, 6.00f, IHeatEntity.conductivityDiamond); // Cryotheum: an amazing moderator!
+		ReactorInterior.registerFluid("molten.enderium",		0.90f, 0.75f, 2.00f, IHeatEntity.conductivityGold);
+		ReactorInterior.registerFluid("molten.enderiumbase",		0.90f, 0.75f, 2.00f, IHeatEntity.conductivityGold);
 		ReactorInterior.registerFluid("ender",		0.90f, 0.75f, 2.00f, IHeatEntity.conductivityGold);
 		ReactorInterior.registerFluid("pyrotheum",	0.66f, 0.90f, 1.00f, IHeatEntity.conductivityIron);
 		
 		ReactorInterior.registerFluid("life essence", 0.70f, 0.55f, 1.75f, IHeatEntity.conductivityGold); // From Blood Magic
+		ReactorInterior.registerFluid("oxygen", 0.72f, 0.98f, 1.95f, IHeatEntity.conductivityDiamond); // NuclearCraft
 
 		if(enableComedy) {
 			ReactorInterior.registerBlock("blockMeat", 	0.50f, 0.33f, 1.33f, IHeatEntity.conductivityStone);

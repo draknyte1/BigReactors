@@ -123,7 +123,8 @@ public abstract class TileEntityPoweredInventoryFluid extends
      * @param doFill If false filling will only be simulated.
      * @return Amount of resource that was filled into internal tanks.
      */
-    public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
+    @Override
+	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
     	int tankToFill = FLUIDTANK_NONE;
     	if(from != ForgeDirection.UNKNOWN) {
     		tankToFill = getExposedTankFromSide(from.ordinal());
@@ -134,9 +135,8 @@ public abstract class TileEntityPoweredInventoryFluid extends
 
     	if(tankToFill <= FLUIDTANK_NONE) {
     		return 0;
-    	} else {
-    		return fill(tankToFill, resource, doFill);
     	}
+		return fill(tankToFill, resource, doFill);
     }
  
     /**
@@ -163,7 +163,8 @@ public abstract class TileEntityPoweredInventoryFluid extends
      * @param doDrain If false draining will only be simulated.
      * @return FluidStack representing the fluid and amount actually drained from the ITankContainer
      */
-    public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
+    @Override
+	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
     	int tankToDrain = 0;
     	if(from != ForgeDirection.UNKNOWN) {
     		tankToDrain = getExposedTankFromSide(from.ordinal());
@@ -171,9 +172,8 @@ public abstract class TileEntityPoweredInventoryFluid extends
 
     	if(tankToDrain <= FLUIDTANK_NONE) {
     		return null;
-    	} else {
-    		return drain(tankToDrain, maxDrain, doDrain);
     	}
+		return drain(tankToDrain, maxDrain, doDrain);
     }
    
     /**
@@ -199,7 +199,8 @@ public abstract class TileEntityPoweredInventoryFluid extends
      * @return FluidStack representing the Fluid and amount that was (or would have been, if
      *         simulated) drained.
      */
-    public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
+    @Override
+	public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
     	int tankToDrain = 0;
     	if(from != ForgeDirection.UNKNOWN) {
     		tankToDrain = getExposedTankFromSide(from.ordinal());
@@ -208,14 +209,12 @@ public abstract class TileEntityPoweredInventoryFluid extends
     	if(tankToDrain == FLUIDTANK_NONE) {
     		return null;
     	}
-    	else {
-    		// Can't drain that fluid from that side.
-    		if(!resource.isFluidEqual( tanks[tankToDrain].getFluid() )) {
-    			return null;
-    		}
-    		
-    		return drain(tankToDrain, resource.amount, doDrain);
-    	}
+		// Can't drain that fluid from that side.
+		if(!resource.isFluidEqual( tanks[tankToDrain].getFluid() )) {
+			return null;
+		}
+		
+		return drain(tankToDrain, resource.amount, doDrain);
     }
     
     /**
@@ -226,14 +225,12 @@ public abstract class TileEntityPoweredInventoryFluid extends
     	if(direction == ForgeDirection.UNKNOWN) {
     		return tanks;
     	}
-    	else {
-    		int exposure = getExposedTankFromSide(direction.ordinal());
-    		if(exposure == FLUIDTANK_NONE) {
-    			return kEmptyFluidTankList;
-    		}
-    		
-    		return tankExposureCache[exposure];
-    	}
+		int exposure = getExposedTankFromSide(direction.ordinal());
+		if(exposure == FLUIDTANK_NONE) {
+			return kEmptyFluidTankList;
+		}
+		
+		return tankExposureCache[exposure];
     }
 
     /**
@@ -247,19 +244,17 @@ public abstract class TileEntityPoweredInventoryFluid extends
     	if(direction == ForgeDirection.UNKNOWN) {
     		return null;
     	}
-    	else {
-    		int tankIdx = getExposedTankFromSide(direction.ordinal());
-    		if(tankIdx == FLUIDTANK_NONE) {
-    			return null;
-    		}
-    		
-    		IFluidTank t = tanks[tankIdx];
-    		if(type == null || isFluidValidForTank(tankIdx, type)) {
-    			return t;
-    		}
-    		
-    		return null;
-    	}
+		int tankIdx = getExposedTankFromSide(direction.ordinal());
+		if(tankIdx == FLUIDTANK_NONE) {
+			return null;
+		}
+		
+		IFluidTank t = tanks[tankIdx];
+		if(type == null || isFluidValidForTank(tankIdx, type)) {
+			return t;
+		}
+		
+		return null;
     }
 
     /**
@@ -267,21 +262,16 @@ public abstract class TileEntityPoweredInventoryFluid extends
      * 
      * More formally, this should return true if fluid is able to enter from the given direction.
      */
-    public boolean canFill(ForgeDirection from, Fluid fluid) {
+    @Override
+	public boolean canFill(ForgeDirection from, Fluid fluid) {
     	int tankIdx = 0;
     	if(from != ForgeDirection.UNKNOWN) {
     		tankIdx = getExposedTankFromSide(from.ordinal());
     	}
 
     	if(tankIdx == FLUIDTANK_NONE) { return false; }
-
-    	IFluidTank tank = tanks[tankIdx];
-    	if(tank.getFluidAmount() <= 0) {
-    		return true;
-    	}
-    	else {
-    		return tank.getFluid().fluidID == fluid.getID();
-    	}
+		FluidTank tank = this.tanks[tankIdx];
+		return tank.getFluidAmount() <= 0 || tank.getFluid().getFluidID() == fluid.getID();
     }
 
     /**
@@ -289,21 +279,16 @@ public abstract class TileEntityPoweredInventoryFluid extends
      * 
      * More formally, this should return true if fluid is able to leave from the given direction.
      */
-    public boolean canDrain(ForgeDirection from, Fluid fluid) {
+    @Override
+	public boolean canDrain(ForgeDirection from, Fluid fluid) {
     	int tankIdx = 0;
     	if(from != ForgeDirection.UNKNOWN) {
     		tankIdx = getExposedTankFromSide(from.ordinal());
     	}
 
     	if(tankIdx == FLUIDTANK_NONE) { return false; }
-
-    	IFluidTank tank = tanks[tankIdx];
-    	if(tank.getFluidAmount() <= 0) {
-    		return false;
-    	}
-    	else {
-    		return tank.getFluid().fluidID == fluid.getID();
-    	}
+		FluidTank tank = this.tanks[tankIdx];
+		return tank.getFluidAmount() > 0 && tank.getFluid().getFluidID() == fluid.getID();
     }
 
     /**
@@ -314,7 +299,8 @@ public abstract class TileEntityPoweredInventoryFluid extends
      *            Orientation determining which tanks should be queried.
      * @return Info for the relevant internal tanks.
      */
-    public FluidTankInfo[] getTankInfo(ForgeDirection from) {
+    @Override
+	public FluidTankInfo[] getTankInfo(ForgeDirection from) {
     	return getTankInfo();
     }
 
@@ -324,7 +310,8 @@ public abstract class TileEntityPoweredInventoryFluid extends
      * 
      * @return Info for the relevant internal tanks.
      */
-    public FluidTankInfo[] getTankInfo() {
+    @Override
+	public FluidTankInfo[] getTankInfo() {
     	FluidTankInfo[] infos = new FluidTankInfo[tanks.length];
     	for(int i = 0; i < tanks.length; i++) {
     		infos[i] = tanks[i].getInfo();
