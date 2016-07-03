@@ -798,6 +798,7 @@ public class BigReactors {
 		TurbineCoil.registerBlock("blockBrass",		1.4f, 1f, 1.2f);	// Metallurgy
 		TurbineCoil.registerBlock("blockBronze",		1.4f, 1f, 1.2f);	// Mekanism, many others
 		TurbineCoil.registerBlock("blockAluminum",	1.5f, 1f, 1.3f);	// TiCo, couple others
+		TurbineCoil.registerBlock("blockAluminium",	1.5f, 1f, 1.3f);	// TiCo, couple others
 		TurbineCoil.registerBlock("blockSteel",		1.5f, 1f, 1.3f);	// Metallurgy, Mek, etc.
 		TurbineCoil.registerBlock("blockInvar", 		1.5f, 1f, 1.4f);	// TE
 		TurbineCoil.registerBlock("blockSilver", 		1.7f, 1f, 1.5f);	// TE, lots of mods
@@ -838,6 +839,7 @@ public class BigReactors {
 		ReactorInterior.registerBlock("blockBronze", 		0.51f, 0.77f, 1.41f, IHeatEntity.conductivityCopper);
 		ReactorInterior.registerBlock("blockZinc",		0.51f, 0.77f, 1.41f, IHeatEntity.conductivityCopper);
 		ReactorInterior.registerBlock("blockAluminum", 	0.50f, 0.78f, 1.42f, IHeatEntity.conductivityIron);
+		ReactorInterior.registerBlock("blockAluminium", 	0.50f, 0.78f, 1.42f, IHeatEntity.conductivityIron);
 		ReactorInterior.registerBlock("blockSteel",	 	0.50f, 0.78f, 1.42f, IHeatEntity.conductivityIron);
 		ReactorInterior.registerBlock("blockInvar",	 	0.50f, 0.79f, 1.43f, IHeatEntity.conductivityIron);
 		ReactorInterior.registerBlock("blockSilver", 		0.51f, 0.79f, 1.43f, IHeatEntity.conductivitySilver);
